@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TemplateValidator": {
+      "commandName": "Project",
+      "commandLineArgs": "folder-validate -d \"C:\\Projects\\WebTemplateStudio\\templates\" --nowarn"
+    }
+  }
+}
