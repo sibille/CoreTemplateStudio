@@ -1,0 +1,41 @@
+{
+  "Classification": "Universal",
+  "Authors": [ "Microsoft", "Microsoft Community", "Laurent Bugnion", "Laurent Bugnion + Community Contribution", "Nigel Sampson" ]
+  "Tags": {
+    "language": [ "C#", "VisualBasic" ],
+    "wts.frontendframework": [ "MVVMBasic", "MVVMLight", "CodeBehind", "CaliburnMicro", "Prism", "all" ],
+    "wts.projecttype": [ "Blank", "SplitView", "TabbedNav", "MenuBar", "all" ],
+    "wts.platform": [ "Uwp" ],
+    "wts.group": [ "Analytics", "BackgroundWork", "UserInteraction", "ApplicationLifecycle", "ApplicationLaunching", "ConnectedExperiences", "Identity", "Testing", "Data", "Tools", "Packaging" ],
+    "wts.requiredVSWorkload": [ "Microsoft.VisualStudio.ComponentGroup.MSIX.Packaging", "Microsoft.VisualStudio.Workload.NetWeb", "Microsoft.VisualStudio.Workload.Universal" ],
+    "wts.requiredVersions": [ "UAP, Version=10.0.19041.0", "dotnet, Version=3.1.7" ],
+    "wts.export.baseclass": [ "Observable", "ViewModelBase", "INotifyPropertyChanged", "Screen", "PropertyChangedBase", "BindableBase", "ObservableRecipient" ],
+    "wts.export.setter": [ "Set", "SetProperty" ],
+    "wts.export.configtype": [ "IOptions<AppConfig>", "AppConfig" ],
+    "wts.export.configvalue": [ "appConfig.Value", "appConfig" ],
+    "wts.export.commandclass": [ "RelayCommand", "DelegateCommand" ],
+    "wts.export.pagetype": [ "Page", "UserControl" ],
+    "wts.export.canExecuteChangedMethodName": [ "OnCanExecuteChanged", "RaiseCanExecuteChanged" ],
+    "wts.export.onNavigatedToParams": [ "object parameter", "NavigationContext navigationContext" ],
+    "wts.export.onNavigatedFromParams": [ "", "NavigationContext navigationContext" ]
+  },
+  "Symbols": [
+    "baseclass",
+    "setter",
+    "wts.Page.Settings",
+    "wts.Page.Settings.CodeBehind",
+    "wts.Page.Settings.Prism",
+    "wts.Page.Settings.CaliburnMicro",
+    "wts.Page.Settings.VB",
+    "wts.Page.Settings.CodeBehind.VB",
+    "copyrightYear",
+    "wts.safeprojectName",
+    "commandclass",
+    "onNavigatedToParams",
+    "onNavigatedFromParams",
+    "configtype",
+    "configvalue",
+    "pagetype",
+    "canExecuteChangedMethodName"
+  ]
+}

@@ -2,7 +2,7 @@
   "profiles": {
     "TemplateValidator": {
       "commandName": "Project",
-      "commandLineArgs": "folder-validate -d \"C:\\Projects\\WebTemplateStudio\\templates\" --nowarn"
+      "commandLineArgs": "file-validate -f \"C:\\Projects\\WindowsTemplateStudio\\templates\\Uwp\\Pages\\MasterDetail\\.template.config\\template.json\" -c \"C:\\Projects\\CoreTemplateStudio\\code\\tools\\TemplateValidator\\UwpConfiguration.json\""
     }
   }
 }

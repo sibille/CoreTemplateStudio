@@ -29,7 +29,7 @@ namespace TemplateValidator
                 var parsedArgs = Parser.Default.ParseArguments<FolderValidationOptions, FileValidationOptions>(args);
                 results = parsedArgs.MapResult(
                     (FolderValidationOptions folderOptions) => { return TemplateFolderVerifier.VerifyTemplateFolders(!folderOptions.NoWarnings, folderOptions.CheckPrimaryOutput, folderOptions.Directories); },
-                    (FileValidationOptions fileOptions) => { return TemplateJsonVerifier.VerifyTemplatePathAsync(fileOptions.File).Result; },
+                    (FileValidationOptions fileOptions) => { return TemplateJsonVerifier.VerifyTemplatePathAsync(fileOptions.File, fileOptions.ConfigFilePath).Result; },
                     errors =>
                     {
                         var helpText = HelpText.AutoBuild(parsedArgs);
