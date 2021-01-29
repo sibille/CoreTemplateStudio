@@ -162,7 +162,7 @@ namespace Microsoft.Templates.Core.Gen
 
         private static List<GenInfo> AddInCompositionTemplates(List<GenInfo> genQueue, UserSelection userSelection, bool newItemGeneration)
         {
-            var compositionCatalog = GetCompositionCatalog(userSelection.Platform).ToList();
+            var compositionCatalog = GetCompositionCatalog(userSelection.Platform.Id).ToList();
 
             var context = new QueryablePropertyDictionary
             {
@@ -181,6 +181,14 @@ namespace Microsoft.Templates.Core.Gen
             if (!string.IsNullOrEmpty(userSelection.BackEndFramework))
             {
                 context.Add(new QueryableProperty("backendframework", userSelection.BackEndFramework));
+            }
+
+            if (userSelection.Platform.Options.Any())
+            {
+                foreach (var option in userSelection.Platform.Options)
+                {
+                    context.Add(new QueryableProperty(option.Key, option.Value));
+                }
             }
 
             var combinedQueue = new List<GenInfo>();
@@ -290,7 +298,7 @@ namespace Microsoft.Templates.Core.Gen
             projectGenInfo?.Parameters.Add(GenParams.ProjectType, userSelection.ProjectType);
             projectGenInfo?.Parameters.Add(GenParams.FrontEndFramework, userSelection.FrontEndFramework);
             projectGenInfo?.Parameters.Add(GenParams.BackEndFramework, userSelection.BackEndFramework);
-            projectGenInfo?.Parameters.Add(GenParams.Platform, userSelection.Platform);
+            projectGenInfo?.Parameters.Add(GenParams.Platform, userSelection.Platform.Id);
         }
 
         private static void AddCasingParams(string name, ITemplateInfo template, GenInfo genInfo)

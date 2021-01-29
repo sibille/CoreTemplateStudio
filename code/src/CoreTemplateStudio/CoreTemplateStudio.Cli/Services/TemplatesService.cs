@@ -56,7 +56,7 @@ namespace Microsoft.Templates.Cli.Services
 
         public IEnumerable<LayoutInfo> GetLayouts(string projectType, string frontEndFramework, string backEndFramework)
         {
-            var platform = GenContext.CurrentPlatform;
+            var platform = new Platform(GenContext.CurrentPlatform);
             var layouts = GenContext.ToolBox.Repo.GetLayoutTemplates(platform, projectType, frontEndFramework, backEndFramework);
 
             return layouts;
@@ -86,7 +86,7 @@ namespace Microsoft.Templates.Cli.Services
 
         private IEnumerable<TemplateInfo> GetTemplateItems(TemplateType templateType, string projectType, string frontEndFramework, string backEndFramework)
         {
-            var platform = GenContext.CurrentPlatform;
+            var platform = new Platform(GenContext.CurrentPlatform);
             var templateItems = GenContext.ToolBox.Repo.GetTemplatesInfo(
                                                                 templateType,
                                                                 platform,

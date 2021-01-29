@@ -21,7 +21,7 @@ namespace Microsoft.Templates.Core.Gen
 
     public class UserSelection
     {
-        public UserSelection(string projectType, string frontEndFramework, string backEndFramework, string platform, string language)
+        public UserSelection(string projectType, string frontEndFramework, string backEndFramework, Platform platform, string language)
         {
             if (string.IsNullOrWhiteSpace(language))
             {
@@ -43,7 +43,7 @@ namespace Microsoft.Templates.Core.Gen
 
         public string HomeName { get; set; }
 
-        public string Platform { get; private set; }
+        public Platform Platform { get; private set; }
 
         public string Language { get; private set; }
 

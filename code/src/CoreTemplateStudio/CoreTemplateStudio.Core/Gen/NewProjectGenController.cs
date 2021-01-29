@@ -37,7 +37,7 @@ namespace Microsoft.Templates.Core.Gen
             var genResults = await GenerateItemsAsync(genItems, false);
             chrono.Stop();
 
-            TrackTelemetry(genItems, genResults, chrono.Elapsed.TotalSeconds, userSelection.ProjectType, userSelection.FrontEndFramework, userSelection.BackEndFramework, userSelection.Platform, userSelection.Language);
+            TrackTelemetry(genItems, genResults, chrono.Elapsed.TotalSeconds, userSelection.ProjectType, userSelection.FrontEndFramework, userSelection.BackEndFramework, userSelection.Platform.Id, userSelection.Language);
         }
 
         private static void TrackTelemetry(IEnumerable<GenInfo> genItems, Dictionary<string, TemplateCreationResult> genResults, double timeSpent, string appProjectType, string appFrontendFramework, string appBackendFramework, string appPlatform, string language)

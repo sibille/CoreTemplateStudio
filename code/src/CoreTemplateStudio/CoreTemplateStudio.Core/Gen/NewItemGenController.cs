@@ -42,7 +42,7 @@ namespace Microsoft.Templates.Core.Gen
             var genResults = await GenerateItemsAsync(genItems, true);
             chrono.Stop();
 
-            TrackTelemetry(templateType, genItems, genResults, chrono.Elapsed.TotalSeconds, userSelection.ProjectType, userSelection.BackEndFramework, userSelection.BackEndFramework, userSelection.Platform, userSelection.Platform);
+            TrackTelemetry(templateType, genItems, genResults, chrono.Elapsed.TotalSeconds, userSelection.ProjectType, userSelection.BackEndFramework, userSelection.BackEndFramework, userSelection.Platform.Id, userSelection.Language);
         }
 
         public void UnsafeFinishGeneration(UserSelection userSelection)

@@ -14,7 +14,7 @@ namespace Microsoft.Templates.Core.Test.Templates
     {
         private readonly TemplatesFixture _fixture;
         private TemplatesRepository _repo;
-        private const string TestPlatform = "test";
+        private Platform _testPlatform = new Platform("test");
 
         public TemplateRepositoryTests(TemplatesFixture fixture)
         {
@@ -23,7 +23,7 @@ namespace Microsoft.Templates.Core.Test.Templates
 
         private void SetUpFixtureForTesting(string language)
         {
-            _fixture.InitializeFixture(TestPlatform, language);
+            _fixture.InitializeFixture(_testPlatform.Id, language);
             _repo = GenContext.ToolBox.Repo;
         }
 
@@ -32,7 +32,7 @@ namespace Microsoft.Templates.Core.Test.Templates
         {
             SetUpFixtureForTesting(ProgrammingLanguages.CSharp);
 
-            var projectTemplates = _repo.GetProjectTypes(TestPlatform);
+            var projectTemplates = _repo.GetProjectTypes(_testPlatform.Id);
 
             Assert.Collection(projectTemplates, e1 => e1.Equals("ProjectType"));
         }
@@ -42,7 +42,7 @@ namespace Microsoft.Templates.Core.Test.Templates
         {
             SetUpFixtureForTesting(ProgrammingLanguages.CSharp);
 
-            var frameworks = _repo.GetFrontEndFrameworks(TestPlatform, "pt1");
+            var frameworks = _repo.GetFrontEndFrameworks(_testPlatform.Id, "pt1");
 
             Assert.Collection(frameworks, e1 =>
             {
@@ -56,7 +56,7 @@ namespace Microsoft.Templates.Core.Test.Templates
         {
             SetUpFixtureForTesting(ProgrammingLanguages.CSharp);
 
-            var frameworks = _repo.GetBackEndFrameworks(TestPlatform, "pt3");
+            var frameworks = _repo.GetBackEndFrameworks(_testPlatform.Id, "pt3");
 
             Assert.Collection(frameworks, e1 =>
             {
@@ -70,7 +70,7 @@ namespace Microsoft.Templates.Core.Test.Templates
         {
             SetUpFixtureForTesting(ProgrammingLanguages.CSharp);
 
-            var pages = _repo.GetTemplatesInfo(TemplateType.Page, TestPlatform, "pt1", "fx1");
+            var pages = _repo.GetTemplatesInfo(TemplateType.Page, _testPlatform, "pt1", "fx1");
 
             Assert.Collection(
                 pages,
@@ -85,7 +85,7 @@ namespace Microsoft.Templates.Core.Test.Templates
         {
             SetUpFixtureForTesting(ProgrammingLanguages.CSharp);
 
-            var pages = _repo.GetTemplatesInfo(TemplateType.Page, TestPlatform, "pt3", "fx1", "fx3");
+            var pages = _repo.GetTemplatesInfo(TemplateType.Page, _testPlatform, "pt3", "fx1", "fx3");
 
             Assert.Collection(
                 pages,
@@ -100,7 +100,7 @@ namespace Microsoft.Templates.Core.Test.Templates
         {
             SetUpFixtureForTesting(ProgrammingLanguages.CSharp);
 
-            var pages = _repo.GetTemplatesInfo(TemplateType.Page, TestPlatform, "pt1", "fx1", "fx4");
+            var pages = _repo.GetTemplatesInfo(TemplateType.Page, _testPlatform, "pt1", "fx1", "fx4");
 
             Assert.Empty(pages);
         }
@@ -110,7 +110,7 @@ namespace Microsoft.Templates.Core.Test.Templates
         {
             SetUpFixtureForTesting(ProgrammingLanguages.CSharp);
 
-            var features = _repo.GetTemplatesInfo(TemplateType.Feature, TestPlatform, "pt1", "fx1");
+            var features = _repo.GetTemplatesInfo(TemplateType.Feature, _testPlatform, "pt1", "fx1");
 
             Assert.Contains(features, f => f.Name == "FeatureTemplate");
         }
@@ -120,7 +120,7 @@ namespace Microsoft.Templates.Core.Test.Templates
         {
             SetUpFixtureForTesting(ProgrammingLanguages.CSharp);
 
-            var features = _repo.GetTemplatesInfo(TemplateType.Feature, TestPlatform, "pt3", "fx1", "fx3");
+            var features = _repo.GetTemplatesInfo(TemplateType.Feature, _testPlatform, "pt3", "fx1", "fx3");
 
             Assert.Collection(
                 features,
@@ -135,7 +135,7 @@ namespace Microsoft.Templates.Core.Test.Templates
         {
             SetUpFixtureForTesting(ProgrammingLanguages.CSharp);
 
-            var features = _repo.GetTemplatesInfo(TemplateType.Feature, TestPlatform, "pt1", "fx1", "fx4");
+            var features = _repo.GetTemplatesInfo(TemplateType.Feature, _testPlatform, "pt1", "fx1", "fx4");
 
             Assert.Empty(features);
         }
@@ -145,7 +145,7 @@ namespace Microsoft.Templates.Core.Test.Templates
         {
             SetUpFixtureForTesting(ProgrammingLanguages.CSharp);
 
-            var services = _repo.GetTemplatesInfo(TemplateType.Service, TestPlatform, "pt1", "fx1");
+            var services = _repo.GetTemplatesInfo(TemplateType.Service, _testPlatform, "pt1", "fx1");
 
             Assert.Collection(
                 services,
@@ -160,7 +160,7 @@ namespace Microsoft.Templates.Core.Test.Templates
         {
             SetUpFixtureForTesting(ProgrammingLanguages.CSharp);
 
-            var services = _repo.GetTemplatesInfo(TemplateType.Service, TestPlatform, "pt3", "fx1", "fx3");
+            var services = _repo.GetTemplatesInfo(TemplateType.Service, _testPlatform, "pt3", "fx1", "fx3");
 
             Assert.Collection(
                 services,
@@ -175,7 +175,7 @@ namespace Microsoft.Templates.Core.Test.Templates
         {
             SetUpFixtureForTesting(ProgrammingLanguages.CSharp);
 
-            var services = _repo.GetTemplatesInfo(TemplateType.Service, TestPlatform, "pt1", "fx1", "fx4");
+            var services = _repo.GetTemplatesInfo(TemplateType.Service, _testPlatform, "pt1", "fx1", "fx4");
 
             Assert.Empty(services);
         }
@@ -185,7 +185,7 @@ namespace Microsoft.Templates.Core.Test.Templates
         {
             SetUpFixtureForTesting(ProgrammingLanguages.CSharp);
 
-            var testing = _repo.GetTemplatesInfo(TemplateType.Testing, TestPlatform, "pt1", "fx1");
+            var testing = _repo.GetTemplatesInfo(TemplateType.Testing, _testPlatform, "pt1", "fx1");
 
             Assert.Collection(
                 testing,
@@ -200,7 +200,7 @@ namespace Microsoft.Templates.Core.Test.Templates
         {
             SetUpFixtureForTesting(ProgrammingLanguages.CSharp);
 
-            var testing = _repo.GetTemplatesInfo(TemplateType.Testing, TestPlatform, "pt3", "fx1", "fx3");
+            var testing = _repo.GetTemplatesInfo(TemplateType.Testing, _testPlatform, "pt3", "fx1", "fx3");
 
             Assert.Collection(
                 testing,
@@ -215,7 +215,7 @@ namespace Microsoft.Templates.Core.Test.Templates
         {
             SetUpFixtureForTesting(ProgrammingLanguages.CSharp);
 
-            var testing = _repo.GetTemplatesInfo(TemplateType.Testing, TestPlatform, "pt1", "fx1", "fx4");
+            var testing = _repo.GetTemplatesInfo(TemplateType.Testing, _testPlatform, "pt1", "fx1", "fx4");
 
             Assert.Empty(testing);
         }

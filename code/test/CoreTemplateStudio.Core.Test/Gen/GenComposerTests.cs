@@ -33,7 +33,7 @@ namespace Microsoft.Templates.Core.Test.Gen
                 ProjectName = "TestProject",
             };
 
-            var userSelection = new UserSelection("pt1", "fx1", string.Empty, "test", ProgrammingLanguages.CSharp)
+            var userSelection = new UserSelection("pt1", "fx1", string.Empty, new Platform("test"), ProgrammingLanguages.CSharp)
             {
                 HomeName = "TestHome",
             };
@@ -53,7 +53,7 @@ namespace Microsoft.Templates.Core.Test.Gen
                 ProjectName = "TestProject",
             };
 
-            var userSelection = new UserSelection("pt1", "fx1", string.Empty, "test", ProgrammingLanguages.CSharp)
+            var userSelection = new UserSelection("pt1", "fx1", string.Empty, new Platform("test"), ProgrammingLanguages.CSharp)
             {
                 HomeName = "TestHome",
             };
@@ -82,7 +82,7 @@ namespace Microsoft.Templates.Core.Test.Gen
                 ProjectName = "TestProject",
             };
 
-            var userSelection = new UserSelection("pt1", "fx1", string.Empty, "test", ProgrammingLanguages.CSharp)
+            var userSelection = new UserSelection("pt1", "fx1", string.Empty, new Platform("test"), ProgrammingLanguages.CSharp)
             {
                 HomeName = "TestHome",
             };
@@ -104,7 +104,7 @@ namespace Microsoft.Templates.Core.Test.Gen
                 ProjectName = "TestProject",
             };
 
-            var userSelection = new UserSelection("pt1", "fx1", string.Empty, "test", ProgrammingLanguages.CSharp)
+            var userSelection = new UserSelection("pt1", "fx1", string.Empty, new Platform("test"), ProgrammingLanguages.CSharp)
             {
                 HomeName = "TestHome",
             };
@@ -128,7 +128,7 @@ namespace Microsoft.Templates.Core.Test.Gen
                 ProjectName = "TestProject",
             };
 
-            var userSelection = new UserSelection("pt1", "fx1", string.Empty, "test", ProgrammingLanguages.CSharp)
+            var userSelection = new UserSelection("pt1", "fx1", string.Empty, new Platform("test"), ProgrammingLanguages.CSharp)
             {
                 HomeName = "TestHome",
             };

@@ -225,6 +225,20 @@ namespace Microsoft.Templates.Core
             return result;
         }
 
+        public static List<string> GetPlatformOptionsList(this ITemplateInfo ti, string optionKey)
+        {
+            var optionValues = GetValueFromTag(ti, TagPrefix + optionKey);
+
+            var result = new List<string>();
+
+            if (!string.IsNullOrEmpty(optionValues))
+            {
+                result.AddRange(optionValues.Split(Separator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries));
+            }
+
+            return result;
+        }
+
         public static string GetPlatform(this ITemplateInfo ti)
         {
             return GetValueFromTag(ti, TagPrefix + "platform") ?? string.Empty;

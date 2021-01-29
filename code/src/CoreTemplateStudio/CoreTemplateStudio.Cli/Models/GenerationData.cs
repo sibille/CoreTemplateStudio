@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Microsoft.Templates.Core;
 using Microsoft.Templates.Core.Gen;
 
 namespace Microsoft.Templates.Cli.Models
@@ -43,7 +44,8 @@ namespace Microsoft.Templates.Cli.Models
 
         public UserSelection ToUserSelection()
         {
-            var userSelection = new UserSelection(ProjectType, FrontendFramework, BackendFramework, Platform, Language);
+            var platform = new Platform(Platform);
+            var userSelection = new UserSelection(ProjectType, FrontendFramework, BackendFramework, platform, Language);
 
             Pages.ForEach(p => userSelection.Pages.Add(p.ToGenerationItem()));
             Features.ForEach(p => userSelection.Features.Add(p.ToGenerationItem()));

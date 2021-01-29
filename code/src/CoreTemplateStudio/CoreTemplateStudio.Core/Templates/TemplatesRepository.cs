@@ -164,16 +164,17 @@ namespace Microsoft.Templates.Core
             return results;
         }
 
-        public IEnumerable<ITemplateInfo> GetTemplates(TemplateType type, string platform, string projectType, string frontEndFramework = null, string backEndFramework = null)
+        public IEnumerable<ITemplateInfo> GetTemplates(TemplateType type, Platform platform, string projectType, string frontEndFramework = null, string backEndFramework = null)
         {
             return Get(t => t.GetTemplateType() == type
-                && t.GetPlatform().Equals(platform, StringComparison.OrdinalIgnoreCase)
+                && t.GetPlatform().Equals(platform.Id, StringComparison.OrdinalIgnoreCase)
                 && (t.GetProjectTypeList().Contains(projectType) || t.GetProjectTypeList().Contains(All))
                 && IsMatchFrontEnd(t, frontEndFramework)
-                && IsMatchBackEnd(t, backEndFramework));
+                && IsMatchBackEnd(t, backEndFramework)
+                && IsMatchPlatformOptions(t, platform.Options));
         }
 
-        public TemplateInfo GetTemplateInfo(ITemplateInfo template, string platform, string projectType, string frontEndFramework = null, string backEndFramework = null)
+        public TemplateInfo GetTemplateInfo(ITemplateInfo template, Platform platform, string projectType, string frontEndFramework = null, string backEndFramework = null)
         {
             var templateInfo = new TemplateInfo
             {
@@ -212,13 +213,13 @@ namespace Microsoft.Templates.Core
             return templateInfo;
         }
 
-        public IEnumerable<TemplateInfo> GetTemplatesInfo(TemplateType type, string platform, string projectType, string frontEndFramework = null, string backEndFramework = null)
+        public IEnumerable<TemplateInfo> GetTemplatesInfo(TemplateType type, Platform platform, string projectType, string frontEndFramework = null, string backEndFramework = null)
         {
             var templates = GetTemplates(type, platform, projectType, frontEndFramework, backEndFramework);
             return GetTemplatesInfo(templates, platform, projectType, frontEndFramework, backEndFramework);
         }
 
-        public IEnumerable<TemplateInfo> GetTemplatesInfo(IEnumerable<ITemplateInfo> templates, string platform, string projectType, string frontEndFramework = null, string backEndFramework = null)
+        public IEnumerable<TemplateInfo> GetTemplatesInfo(IEnumerable<ITemplateInfo> templates, Platform platform, string projectType, string frontEndFramework = null, string backEndFramework = null)
         {
             foreach (var template in templates)
             {
@@ -226,7 +227,7 @@ namespace Microsoft.Templates.Core
             }
         }
 
-        public IEnumerable<LayoutInfo> GetLayoutTemplates(string platform, string projectType, string frontEndFramework, string backEndFramework)
+        public IEnumerable<LayoutInfo> GetLayoutTemplates(Platform platform, string projectType, string frontEndFramework, string backEndFramework)
         {
             var projectTemplates = GetTemplates(TemplateType.Project, platform, projectType, frontEndFramework, backEndFramework);
 
@@ -244,11 +245,12 @@ namespace Microsoft.Templates.Core
                                                                 && (t.GetProjectTypeList().Contains(projectType) || t.GetProjectTypeList().Contains(All))
                                                                 && IsMatchFrontEnd(t, frontEndFramework)
                                                                 && IsMatchBackEnd(t, backEndFramework)
-                                                                && t.GetPlatform() == platform);
+                                                                && IsMatchPlatformOptions(t, platform.Options)
+                                                                && t.GetPlatform() == platform.Id);
 
                         if (template == null)
                         {
-                            LogOrAlertException(string.Format(StringRes.ErrorLayoutNotFound, item.TemplateGroupIdentity, frontEndFramework, backEndFramework, platform));
+                            LogOrAlertException(string.Format(StringRes.ErrorLayoutNotFound, item.TemplateGroupIdentity, frontEndFramework, backEndFramework, platform.Id));
                         }
                         else
                         {
@@ -268,7 +270,7 @@ namespace Microsoft.Templates.Core
             }
         }
 
-        public IEnumerable<TemplateLicense> GetAllLicences(string templateId, string platform, string projectType, string frontEndFramework, string backEndFramework)
+        public IEnumerable<TemplateLicense> GetAllLicences(string templateId, Platform platform, string projectType, string frontEndFramework, string backEndFramework)
         {
             var templates = new List<ITemplateInfo>();
 
@@ -304,7 +306,7 @@ namespace Microsoft.Templates.Core
             return result;
         }
 
-        public IEnumerable<ITemplateInfo> GetDependencies(ITemplateInfo template, string platform, string projectType, string frontEndFramework, string backEndFramework, IList<ITemplateInfo> dependencyList)
+        public IEnumerable<ITemplateInfo> GetDependencies(ITemplateInfo template, Platform platform, string projectType, string frontEndFramework, string backEndFramework, IList<ITemplateInfo> dependencyList)
         {
             var dependencies = template.GetDependencyList();
 
@@ -314,11 +316,12 @@ namespace Microsoft.Templates.Core
                                                                 && (t.GetProjectTypeList().Contains(projectType) || t.GetProjectTypeList().Contains(All))
                                                                 && IsMatchFrontEnd(t, frontEndFramework)
                                                                 && IsMatchBackEnd(t, backEndFramework)
-                                                                && t.GetPlatform() == platform);
+                                                                && IsMatchPlatformOptions(t, platform.Options)
+                                                                && t.GetPlatform() == platform.Id);
 
                 if (dependencyTemplate == null)
                 {
-                    LogOrAlertException(string.Format(StringRes.ErrorDependencyNotFound, dependency, frontEndFramework, backEndFramework, platform));
+                    LogOrAlertException(string.Format(StringRes.ErrorDependencyNotFound, dependency, frontEndFramework, backEndFramework, platform.Id));
                 }
                 else
                 {
@@ -351,7 +354,7 @@ namespace Microsoft.Templates.Core
             return dependencyList;
         }
 
-        public IEnumerable<ITemplateInfo> GetRequirements(ITemplateInfo template, string platform, string projectType, string frontEndFramework, string backEndFramework)
+        public IEnumerable<ITemplateInfo> GetRequirements(ITemplateInfo template, Platform platform, string projectType, string frontEndFramework, string backEndFramework)
         {
             var requirementsList = new List<ITemplateInfo>();
             var requirements = template.GetRequirementsList();
@@ -362,7 +365,8 @@ namespace Microsoft.Templates.Core
                                                                 && (t.GetProjectTypeList().Contains(projectType) || t.GetProjectTypeList().Contains(All))
                                                                 && IsMatchFrontEnd(t, frontEndFramework)
                                                                 && IsMatchBackEnd(t, backEndFramework)
-                                                                && t.GetPlatform() == platform);
+                                                                && IsMatchPlatformOptions(t, platform.Options)
+                                                                && t.GetPlatform() == platform.Id);
 
                 if (requirementTemplate == null)
                 {
@@ -401,7 +405,7 @@ namespace Microsoft.Templates.Core
             return requirementsList;
         }
 
-        public IEnumerable<ITemplateInfo> GetExclusions(ITemplateInfo template, string platform, string projectType, string frontEndFramework, string backEndFramework)
+        public IEnumerable<ITemplateInfo> GetExclusions(ITemplateInfo template, Platform platform, string projectType, string frontEndFramework, string backEndFramework)
         {
             var exclusionsList = new List<ITemplateInfo>();
             var exclusions = template.GetExclusionsList();
@@ -412,7 +416,8 @@ namespace Microsoft.Templates.Core
                                                                 && (t.GetProjectTypeList().Contains(projectType) || t.GetProjectTypeList().Contains(All))
                                                                 && IsMatchFrontEnd(t, frontEndFramework)
                                                                 && IsMatchBackEnd(t, backEndFramework)
-                                                                && t.GetPlatform() == platform);
+                                                                && IsMatchPlatformOptions(t, platform.Options)
+                                                                && t.GetPlatform() == platform.Id);
 
                 if (exclusionTemplate == null)
                 {
@@ -463,6 +468,18 @@ namespace Microsoft.Templates.Core
             return string.IsNullOrEmpty(backEndFramework)
                     || info.GetBackEndFrameworkList().Contains(backEndFramework, StringComparer.OrdinalIgnoreCase)
                     || info.GetBackEndFrameworkList().Contains(All, StringComparer.OrdinalIgnoreCase);
+        }
+
+        private bool IsMatchPlatformOptions(ITemplateInfo info, Dictionary<string, string> platformOptions)
+        {
+            if (platformOptions == null || !platformOptions.Any())
+            {
+                return true;
+            }
+
+            return platformOptions.Any(o =>
+                info.GetPlatformOptionsList(o.Key).Contains(o.Value, StringComparer.OrdinalIgnoreCase) ||
+                info.GetPlatformOptionsList(o.Key).Contains(All, StringComparer.OrdinalIgnoreCase));
         }
 
         private IEnumerable<MetadataInfo> GetMetadataInfo(string type)
